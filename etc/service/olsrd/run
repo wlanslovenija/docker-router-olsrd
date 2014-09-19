@@ -15,7 +15,7 @@ OLSRD_CONFIG=/etc/olsrd/olsrd.conf
 echo "MainIp ${ROUTER_MAIN_IP}" >> ${OLSRD_CONFIG}
 
 ifaces=""
-for iface in "${ROUTER_INTERFACES}"; do
+for iface in ${ROUTER_INTERFACES}; do
   ifaces="${ifaces} \"${iface}\""
 done
 echo "Interface ${ifaces}" >> ${OLSRD_CONFIG}
