@@ -1,0 +1,27 @@
+#!/bin/bash -e
+
+if [ -z "${ROUTER_MAIN_IP}" ]; then
+  echo "ERROR: Router main IP not specified."
+  exit 1
+fi
+
+if [ -z "${ROUTER_INTERFACES}" ]; then
+  echo "ERROR: No interfaces specified."
+  exit 1
+fi
+
+# Configure olsrd
+OLSRD_CONFIG=/etc/olsrd/olsrd.conf
+echo "MainIp ${ROUTER_MAIN_IP}" >> ${OLSRD_CONFIG}
+
+ifaces=""
+for iface in "${ROUTER_INTERFACES}"; do
+  ifaces="${ifaces} \"${iface}\""
+done
+echo "Interface ${ifaces}" >> ${OLSRD_CONFIG}
+echo "{" >> ${OLSRD_CONFIG}
+echo "  IPv4Multicast 255.255.255.255" >> ${OLSRD_CONFIG}
+echo "}" >> ${OLSRD_CONFIG}
+
+exec /usr/sbin/olsrd -f /etc/olsrd/olsrd.conf -nofork 2>&1
+
