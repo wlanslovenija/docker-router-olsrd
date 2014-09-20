@@ -23,5 +23,5 @@ echo "{" >> ${OLSRD_CONFIG}
 echo "  IPv4Multicast 255.255.255.255" >> ${OLSRD_CONFIG}
 echo "}" >> ${OLSRD_CONFIG}
 
-exec /usr/sbin/olsrd -f /etc/olsrd/olsrd.conf -nofork 2>&1
+exec /usr/sbin/olsrd -f /etc/olsrd/olsrd.conf -d 0 -nofork 2>&1
 
