@@ -16,6 +16,13 @@ echo "AllowNoInt yes" > ${OLSRD_CONFIG}
 echo "SrcIpRoutes yes" >> ${OLSRD_CONFIG}
 echo "MainIp ${ROUTER_MAIN_IP}" >> ${OLSRD_CONFIG}
 
+echo "" >> ${OLSRD_CONFIG}
+echo "LoadPlugin \"olsrd_txtinfo.so.0.1\"" >> ${OLSRD_CONFIG}
+echo "{" >> ${OLSRD_CONFIG}
+echo "  PlParam \"accept\" \"127.0.0.1\"" >> ${OLSRD_CONFIG}
+echo "}" >> ${OLSRD_CONFIG}
+echo "" >> ${OLSRD_CONFIG}
+
 ifaces=""
 for iface in ${ROUTER_INTERFACES}; do
   ifaces="${ifaces} \"${iface}\""
