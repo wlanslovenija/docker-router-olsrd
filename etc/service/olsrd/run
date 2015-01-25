@@ -12,6 +12,8 @@ fi
 
 # Configure olsrd
 OLSRD_CONFIG=/etc/olsrd/olsrd.conf
+echo "AllowNoInt yes" > ${OLSRD_CONFIG}
+echo "SrcIpRoutes yes" >> ${OLSRD_CONFIG}
 echo "MainIp ${ROUTER_MAIN_IP}" >> ${OLSRD_CONFIG}
 
 ifaces=""
