@@ -10,11 +10,19 @@ if [ -z "${ROUTER_INTERFACES}" ]; then
   exit 1
 fi
 
+OLSRD_TABLE_ID=${OLSRD_TABLE_ID:-20}
+OLSRD_TABLE_PRIO=${OLSRD_TABLE_PRIO:-1000}
+
+# Configure routing policy
+ip rule add from all lookup ${OLSRD_TABLE_ID} prio ${OLSRD_TABLE_PRIO}
+
 # Configure olsrd
 OLSRD_CONFIG=/etc/olsrd/olsrd.conf
 echo "AllowNoInt yes" > ${OLSRD_CONFIG}
 echo "SrcIpRoutes yes" >> ${OLSRD_CONFIG}
 echo "MainIp ${ROUTER_MAIN_IP}" >> ${OLSRD_CONFIG}
+echo "RtTable ${OLSRD_TABLE_ID}" >> ${OLSRD_CONFIG}
+echo "RtTableDefault ${OLSRD_TABLE_ID}" >> ${OLSRD_CONFIG}
 
 echo "" >> ${OLSRD_CONFIG}
 echo "LoadPlugin \"olsrd_txtinfo.so.0.1\"" >> ${OLSRD_CONFIG}
