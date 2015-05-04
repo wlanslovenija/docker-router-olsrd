@@ -14,6 +14,7 @@ OLSRD_TABLE_ID=${OLSRD_TABLE_ID:-20}
 OLSRD_TABLE_PRIO=${OLSRD_TABLE_PRIO:-1000}
 
 # Configure routing policy
+ip rule del from all lookup ${OLSRD_TABLE_ID} || true 2>/dev/null
 ip rule add from all lookup ${OLSRD_TABLE_ID} prio ${OLSRD_TABLE_PRIO}
 
 # Configure olsrd
