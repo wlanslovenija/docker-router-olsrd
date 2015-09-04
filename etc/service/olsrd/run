@@ -17,7 +17,7 @@ OLSRD_DEFAULT_TABLE_PRIO=${OLSRD_DEFAULT_TABLE_PRIO:-1101}
 
 # Configure routing policy
 ip rule del from all to 172.17.0.0/16 lookup main || true 2>/dev/null
-ip rule add from all to 172.17.0.0/16 lookup main prio 100
+ip rule add from all to 172.17.0.0/16 lookup main prio 500
 ip rule del from all lookup ${OLSRD_TABLE_ID} || true 2>/dev/null
 ip rule add from all lookup ${OLSRD_TABLE_ID} prio ${OLSRD_TABLE_PRIO}
 ip rule del from all lookup ${OLSRD_DEFAULT_TABLE_ID} || true 2>/dev/null
